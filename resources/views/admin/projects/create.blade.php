@@ -22,33 +22,37 @@
             </div>
 
             <div class="col-6 mb-2">
-                <div class="row">
-                    <div class="col-6">
-                        <label for="repository" class="form-label">Repository</label>
+                <label for="repository" class="form-label">Repository</label>
                         <input type="text" class="form-control @error('repository') is-invalid @enderror" id="repository" name="repository" value="{{ old('repository')}}"/>
                         @error('repository')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
                         @enderror
-                    </div>
+            </div>
 
-                    <div class="col-6">
-                        <label for="type_id" class="form-label">Type</label>
-                        <select class="form-select @error('type_id') is-invalid @enderror" id="type_id" name="type_id">
-                            @foreach ($types as $type)
-                            <option @if (old('type_id') == $type->id ) selected @endif value="{{ $type->id }}">{{ $type->name }}</option>
-                            @endforeach
-                            <option @if (old('type_id') == null) selected @endif value="{{ null }}">No type</option>
-                        </select>
-                        @error('type_id')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
+            <div class="col-6">
+                <label for="type_id" class="form-label">Type</label>
+                <select class="form-select @error('type_id') is-invalid @enderror" id="type_id" name="type_id">
+                    @foreach ($types as $type)
+                    <option @if (old('type_id') == $type->id ) selected @endif value="{{ $type->id }}">{{ $type->name }}</option>
+                    @endforeach
+                    <option @if (old('type_id') == null) selected @endif value="{{ null }}">No type</option>
+                </select>
+                @error('type_id')
+                    <div class="invalid-feedback">
+                        {{ $message }}
                     </div>
+                @enderror
+            </div>
 
+            <div class="col-6 py-4 d-flex flex-wrap">
+                @foreach($technologies as $technology)
+                <div>
+                    <input type="checkbox" name="technologies[]" id="tags-{{ $technology->id }}" value="{{ $technology->id }}" {{ in_array($technology->id, old('technologies') ?? []) ? 'checked' : '' }} class="ms-1">
+                    <label for="tags-{{ $technology->id }}" class="ms-3">{{ $technology->name }}</label>
                 </div>
+                @endforeach
             </div>
             
             <div class="col mb-3">
