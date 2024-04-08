@@ -24,7 +24,13 @@
                     None
                 @endif 
             </div>
-            <h5><b>Description</b></h5>
+            <span class="h5 ms-2"><b>Technologies:</b></span>
+                @if (sizeof($project->technologies) > 0 )
+                    {!! $project->getTechnologiesBadges() !!}
+                @else 
+                    None
+                @endif 
+            <h5 class="mt-3"><b>Description:</b></h5>
             <p>{{ $project->description }}</p>                        
 
             <div class="row">

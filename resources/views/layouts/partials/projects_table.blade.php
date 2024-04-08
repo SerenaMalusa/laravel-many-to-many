@@ -6,8 +6,8 @@
         <tr>
           <th scope="col">Title</th>
           <th scope="col">Type</th>
-          <th scope="col">Link</th>
           <th scope="col">Repository</th>
+          <th scope="col">Technologies</th>
           <th scope="col">Last commit</th>
           <th class="text-center">Actions</th>
         </tr>
@@ -16,7 +16,9 @@
       <tbody>
         @foreach ($projects as $project)
           <tr>
-            <td>{{ $project->title }}</th>
+            <td>
+              <a href={{ $project->github_link }} target="_blank">{{ $project->title }}</a>
+            </td>
             <td>
               @if ($project->type_id)
                 @guest
@@ -29,10 +31,14 @@
                 None
               @endif 
             </td>
-            <td>
-                <a href={{ $project->github_link }} target="_blank">{{ $project->github_link }}</a>
-            </td>
             <td>{{ $project->repository }}</td>
+            <td>
+              @if (sizeof($project->technologies) > 0 )
+                {!! $project->getTechnologiesBadges() !!}
+              @else 
+                None
+              @endif 
+            </td>
             <td>{{ $project->last_commit }}</td>
             <td class="text-center">
               <a href="{{ route('projects.show', $project )}}">
