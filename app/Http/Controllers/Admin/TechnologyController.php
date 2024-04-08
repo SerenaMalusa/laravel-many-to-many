@@ -29,7 +29,8 @@ class TechnologyController extends Controller
      */
     public function create()
     {
-        //
+        //return the create view
+        return view('admin.technologies.form');
     }
 
     /**
@@ -40,7 +41,17 @@ class TechnologyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //estrapolate data from the request
+        $data = $request->all();
+        // dd($data);
+
+        //create a new technology and fill it, then save it
+        $technology = new Technology;
+        $technology->fill($data);
+        $technology->save();
+
+        //redirect to the view show of the technology just created
+        return redirect()->route('admin.technologies.show', $technology);
     }
 
     /**

@@ -8,6 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Technology extends Model
 {
     // use HasFactory;
+
+    //authorize the automated fill of some fields
+    protected $fillable = [
+        'name',
+        'colour'
+    ];
+
     public function projects()
     {
         return $this->belongsToMany(Project::class);

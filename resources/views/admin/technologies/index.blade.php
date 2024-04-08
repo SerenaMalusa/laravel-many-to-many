@@ -8,7 +8,7 @@
             <div class="row justify-content-between align-items-center">
                 <h1 class="mb-3 col-6">{{ $title }}</h1>
                     <div class="col-2 d-flex justify-content-end">
-                        <a class="btn btn-primary" href="#">Create a new Technology</a>
+                        <a class="btn btn-primary" href="{{ route('admin.technologies.create') }}">Create a new Technology</a>
                     </div>
             </div>
 
