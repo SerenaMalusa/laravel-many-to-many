@@ -16,7 +16,7 @@ class TypeSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        $names = ['Html/CSS', 'Javascript', 'Node', 'Vue+Vite', 'Frontend', 'php', 'Database', 'Laravel', 'Backend'];
+        $names = ['Frontend', 'Backend', 'Fullstack'];
 
         foreach ($names as $name) {
 
