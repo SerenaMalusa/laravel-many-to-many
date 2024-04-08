@@ -17,4 +17,9 @@ class Technology extends Model
     {
         return '<div style="background-color:' . $this->colour . '; height: 20px; width:100%;"></div>';
     }
+
+    public function getBadge()
+    {
+        return '<span class="badge" style="background-color:' . $this->colour . ';">' . $this->name . '</span>';
+    }
 }

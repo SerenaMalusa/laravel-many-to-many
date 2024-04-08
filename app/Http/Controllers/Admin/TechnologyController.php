@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Project;
 use App\Models\Technology;
 use Illuminate\Http\Request;
 
@@ -50,7 +51,14 @@ class TechnologyController extends Controller
      */
     public function show(Technology $technology)
     {
-        //
+        // get all the ids of the projects related to this technology,
+        // then get all the projects with those ids
+        $related_projects_ids = $technology->projects->pluck('id')->toArray();
+        $related_projects = Project::whereIn('id', $related_projects_ids)->paginate(6);
+        // dd($related_projects);
+
+        //return the view show and pass the variables
+        return view('admin.technologies.show', compact('technology', 'related_projects'));
     }
 
     /**

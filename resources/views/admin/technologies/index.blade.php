@@ -30,7 +30,7 @@
                         <td>{!! $technology->getColour() !!}</td>
                         <td>{{ sizeof($technology->projects) }}</td>
                         <td class="text-center">
-                            <a href="#">
+                            <a href="{{ route('admin.technologies.show', $technology) }}">
                                 <i class="fa-solid fa-circle-info"></i>
                             </a>
                             <a href="#">
