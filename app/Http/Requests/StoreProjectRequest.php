@@ -26,6 +26,7 @@ class StoreProjectRequest extends FormRequest
         return [
             'title' => 'required|string|max:20',
             'type_id' => ['nullable', 'exists:types,id'],
+            'technologies' => 'exists:technologies,id',
             'description' => 'nullable|string',
             'repository' => 'required|max:20',
             'github_link' => 'required',
@@ -47,7 +48,7 @@ class StoreProjectRequest extends FormRequest
             'string' => 'The :attribute must be a string',
             'max' => 'The :attribute must be no longer than :max characters',
             'date' => 'The :attribute must be in date format',
-            'type_id.exists' => 'the chosen type must be one of the list above'
+            'exists' => 'The chosen :attribute must be one of the list above'
         ];
     }
 }

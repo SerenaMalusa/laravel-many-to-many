@@ -23,12 +23,12 @@
 
             <div class="col-6 mb-3">
                 <label for="repository" class="form-label">Repository</label>
-                        <input type="text" class="form-control @error('repository') is-invalid @enderror" id="repository" name="repository" value="{{ old('repository')}}"/>
-                        @error('repository')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                        @enderror
+                <input type="text" class="form-control @error('repository') is-invalid @enderror" id="repository" name="repository" value="{{ old('repository')}}"/>
+                @error('repository')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
             </div>
 
             <div class="col-6 mb-3">
@@ -55,6 +55,11 @@
                         <label for="tags-{{ $technology->id }}" class="ms-3">{{ $technology->name }}</label>
                     </div>
                     @endforeach
+                    @error('technologies')
+                    <div class="@if($errors->has('technologies')) d-block @else d-none @endif invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
             </div>
             
