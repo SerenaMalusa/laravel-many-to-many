@@ -80,7 +80,8 @@ class TechnologyController extends Controller
      */
     public function edit(Technology $technology)
     {
-        //
+        //return the form view and pass the technology to modify
+        return view('admin.technologies.form', compact('technology'));
     }
 
     /**
@@ -92,7 +93,12 @@ class TechnologyController extends Controller
      */
     public function update(Request $request, Technology $technology)
     {
-        //
+        //estract the data from the request, then update the thech with it
+        $data = $request->all();
+        $technology->update($data);
+
+        //return the show view of the modified tech
+        return redirect()->route('admin.technologies.show', $technology);
     }
 
     /**
