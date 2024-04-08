@@ -19,6 +19,11 @@
               <a @class(['nav-link', 'active' => Route::currentRouteName() == 'admin.types.index']) aria-current="page" href="{{ route('admin.types.index') }}">Types</a>
             </li>
           @endauth
+          @auth
+            <li class="nav-item">
+              <a @class(['nav-link', 'active' => Route::currentRouteName() == 'admin.technologies.index']) aria-current="page" href="{{ route('admin.technologies.index') }}">Technologies</a>
+            </li>
+          @endauth
 
           @guest
             <li class="nav-item">

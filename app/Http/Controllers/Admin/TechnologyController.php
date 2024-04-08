@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Technology;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,10 @@ class TechnologyController extends Controller
      */
     public function index()
     {
-        //
+        //get all technologies from DB and paginate them so you can see 10 per page
+        $technologies = Technology::paginate(10);
+        //return the view index and pass the variables to it
+        return view('admin.technologies.index', compact('technologies'));
     }
 
     /**

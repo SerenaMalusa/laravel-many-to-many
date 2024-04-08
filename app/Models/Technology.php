@@ -12,4 +12,9 @@ class Technology extends Model
     {
         return $this->belongsToMany(Project::class);
     }
+
+    public function getColour()
+    {
+        return '<div style="background-color:' . $this->colour . '; height: 20px; width:100%;"></div>';
+    }
 }
