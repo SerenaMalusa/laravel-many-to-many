@@ -11,7 +11,7 @@
         @csrf
         @method('PATCH')
     
-        <div class="row flex-wrap mb-2">
+        <div class="row flex-wrap mb-3">
             <div class="col-6 mb-2">
                 <label for="title" class="form-label">Title</label>
                 <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title') ?? $project->title }}"/>
@@ -22,37 +22,48 @@
                 @enderror
             </div>
 
-            <div class="col-6 mb-2">
-
-                <div class="row">
-                    <div class="col-6">
-                        <label for="repository" class="form-label">Repository</label>
-                        <input type="text" class="form-control @error('repository') is-invalid @enderror" id="repository" name="repository" value="{{ old('repository') ?? $project->repository }}"/>
-                        @error('repository')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                        @enderror
-                    </div>
-
-                    <div class="col-6">
-                        <label for="type_id" class="form-label">Type</label>
-                        <select class="form-select @error('type_id') is-invalid @enderror" id="type_id" name="type_id">
-                            @foreach ($types as $type)
-                            <option @if (old('type_id') ?? $project->type_id == $type->id ) selected @endif value="{{ $type->id }}">{{ $type->name }}</option>
-                            @endforeach
-                            <option @if (old('type_id') ?? $project->type_id == null) selected @endif value="{{ null }}">No type</option>
-                        </select>
-                        @error('type_id')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
+            <div class="col-6 mb-3">
+                <label for="repository" class="form-label">Repository</label>
+                <input type="text" class="form-control @error('repository') is-invalid @enderror" id="repository" name="repository" value="{{ old('repository') ?? $project->repository }}"/>
+                @error('repository')
+                <div class="invalid-feedback">
+                    {{ $message }}
                 </div>
-                
-            </div>
+                @enderror
+            </div>            
+
+            <div class="col-6">
+                <label for="type_id" class="form-label">Type</label>
+                <select class="form-select @error('type_id') is-invalid @enderror" id="type_id" name="type_id">
+                    @foreach ($types as $type)
+                    <option @if (old('type_id') ?? $project->type_id == $type->id ) selected @endif value="{{ $type->id }}">{{ $type->name }}</option>
+                    @endforeach
+                    <option @if (old('type_id') ?? $project->type_id == null) selected @endif value="{{ null }}">No type</option>
+                </select>
+                @error('type_id')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>   
             
+            <div class="col-6 mb-3">
+                <div class="form-label mb-1">Technologies</div>
+                <div class="d-flex flex-wrap">
+                    @foreach($technologies as $technology)
+                    <div>
+                        <input type="checkbox" name="technologies[]" id="tags-{{ $technology->id }}" value="{{ $technology->id }}" {{ in_array($technology->id, old('technologies') ?? $technologies_ids ?? []) ? 'checked' : '' }} class="ms-1">
+                        <label for="tags-{{ $technology->id }}" class="ms-3">{{ $technology->name }}</label>
+                    </div>
+                    @endforeach
+                    @error('technologies')
+                    <div class="@if($errors->has('technologies')) d-block @else d-none @endif invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+            </div>
+                        
             <div class="col">
                 <label for="creation_date" class="form-label">Created at</label>
                 <input type="date" class="form-control @error('creation_date') is-invalid @enderror" id="creation_date" name="creation_date" value="{{ old('creation_date') ?? $project->creation_date }}" />

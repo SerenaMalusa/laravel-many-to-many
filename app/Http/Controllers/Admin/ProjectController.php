@@ -37,9 +37,9 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        $data = $request->all();
+        // $data = $request->all();
         // dd($request);
-        // $data = $request->validated();
+        $data = $request->validated();
         $project = new Project();
         $project->fill($data);
         $project->slug = Str::slug($data['title'], '-');
@@ -60,8 +60,14 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
+        // get all types and all technologies form db
         $types = Type::all();
-        return view('admin.projects.edit', compact('project', 'types'));
+        $technologies = Technology::all();
+
+        //get an array of the ids of the technologies related to this project
+        $technologies_ids = $project->technologies->pluck('id')->toArray();
+
+        return view('admin.projects.edit', compact('project', 'types', 'technologies', 'technologies_ids'));
     }
 
     /**
@@ -79,6 +85,16 @@ class ProjectController extends Controller
         $project->fill($data);
         $project->slug = Str::slug($data['title'], '-');
         $project->save();
+
+        //if the key technologies exist in the array data
+        if (Arr::exists($data, 'technologies')) {
+            //assign the values passed
+            //with data[technologies] to the project, creating the relationships
+            $project->technologies()->sync($data['technologies']);
+        } else {
+            //detach all technologies from this project
+            $project->technologies()->detach();
+        }
 
         return redirect()->route('projects.show', $project);
     }
