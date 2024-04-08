@@ -39,7 +39,7 @@
 @section('modals')
     <div class="modal fade mt-5" id="deleteModal" tabindex="-1" aria-labelledby="deleteModa" aria-hidden="true">
         <div class="modal-dialog">
-            <form class="modal-content" action="#" method="POST">
+            <form class="modal-content" action="{{ route('admin.technologies.destroy', $technology) }}" method="POST">
                 @csrf
                 @method('DELETE')
                 <div class="modal-header">
@@ -51,6 +51,10 @@
                         This action is <b>permanent</b>. <br>
                         Pleazse confirm if you want to proceed.
                     </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
                 </div>
             </form>
         </div>

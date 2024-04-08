@@ -109,6 +109,12 @@ class TechnologyController extends Controller
      */
     public function destroy(Technology $technology)
     {
-        //
+        //delete all relationships between this tech and the related projects
+        $technology->projects()->detach();
+        //delete the technology
+        $technology->delete();
+
+        //redirect to the tech index view
+        return redirect()->route('admin.technologies.index');
     }
 }

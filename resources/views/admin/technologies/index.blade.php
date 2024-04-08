@@ -33,7 +33,7 @@
                             <a href="{{ route('admin.technologies.show', $technology) }}">
                                 <i class="fa-solid fa-circle-info"></i>
                             </a>
-                            <a href="#">
+                            <a href="{{ route('admin.technologies.edit', $technology) }}">
                                 <i class="fa-solid fa-file-pen"></i>
                             </a>
                             <div class="d-inline-block">
@@ -56,7 +56,7 @@
     @foreach($technologies as $technology)
         <div class="modal fade mt-5" id="deleteModal-id{{ $technology->id }}" tabindex="-1" aria-labelledby="deleteModal-id{{ $technology->id }}" aria-hidden="true">
             <div class="modal-dialog">
-                <form class="modal-content" action="#" method="POST">
+                <form class="modal-content" action="{{ route('admin.technologies.destroy', $technology) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <div class="modal-header">
