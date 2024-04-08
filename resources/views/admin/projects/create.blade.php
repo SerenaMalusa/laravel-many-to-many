@@ -5,13 +5,13 @@
 @section('content')
 <section>
     <div class="container py-4">
-      <h1 class="mb-5">{{ $title }}</h1>
+      <h1 class="mb-3">{{ $title }}</h1>
 
       <form action="{{ route('admin.projects.store') }}" method="POST">
         @csrf
     
         <div class="row flex-wrap mb-3">
-            <div class="col-6 mb-2">
+            <div class="col-6 mb-3">
                 <label for="title" class="form-label">Title</label>
                 <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title')}}"/>
                 @error('title')
@@ -21,7 +21,7 @@
                 @enderror
             </div>
 
-            <div class="col-6 mb-2">
+            <div class="col-6 mb-3">
                 <label for="repository" class="form-label">Repository</label>
                         <input type="text" class="form-control @error('repository') is-invalid @enderror" id="repository" name="repository" value="{{ old('repository')}}"/>
                         @error('repository')
@@ -31,7 +31,7 @@
                         @enderror
             </div>
 
-            <div class="col-6">
+            <div class="col-6 mb-3">
                 <label for="type_id" class="form-label">Type</label>
                 <select class="form-select @error('type_id') is-invalid @enderror" id="type_id" name="type_id">
                     @foreach ($types as $type)
@@ -46,13 +46,16 @@
                 @enderror
             </div>
 
-            <div class="col-6 py-4 d-flex flex-wrap">
-                @foreach($technologies as $technology)
-                <div>
-                    <input type="checkbox" name="technologies[]" id="tags-{{ $technology->id }}" value="{{ $technology->id }}" {{ in_array($technology->id, old('technologies') ?? []) ? 'checked' : '' }} class="ms-1">
-                    <label for="tags-{{ $technology->id }}" class="ms-3">{{ $technology->name }}</label>
+            <div class="col-6 mb-3">
+                <div class="form-label mb-1">Technologies</div>
+                <div class="d-flex flex-wrap">
+                    @foreach($technologies as $technology)
+                    <div>
+                        <input type="checkbox" name="technologies[]" id="tags-{{ $technology->id }}" value="{{ $technology->id }}" {{ in_array($technology->id, old('technologies') ?? []) ? 'checked' : '' }} class="ms-1">
+                        <label for="tags-{{ $technology->id }}" class="ms-3">{{ $technology->name }}</label>
+                    </div>
+                    @endforeach
                 </div>
-                @endforeach
             </div>
             
             <div class="col mb-3">

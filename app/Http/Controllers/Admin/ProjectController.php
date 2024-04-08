@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Technology;
 use Illuminate\Support\Str;
 use App\Models\Type;
+use Illuminate\Support\Arr;
 
 class ProjectController extends Controller
 {
@@ -36,13 +37,17 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        // $data = $request->all();
+        $data = $request->all();
         // dd($request);
-        $data = $request->validated();
+        // $data = $request->validated();
         $project = new Project();
         $project->fill($data);
         $project->slug = Str::slug($data['title'], '-');
         $project->save();
+
+        //if the key technologies exist in the array data, then assign the values passed
+        //with data[technologies] to the project, creating the relations
+        if (Arr::exists($data, 'technologies')) $project->technologies()->attach($data['technologies']);
 
         return redirect()->route('projects.show', $project);
     }
