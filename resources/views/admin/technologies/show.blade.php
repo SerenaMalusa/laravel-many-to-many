@@ -23,8 +23,8 @@
                 </div>
                 
                 <div class="col-6 d-flex justify-content-end">
-                    <a class="btn btn-primary ms-2" href="#">Modify this type</a>
-                    <button type="submit" class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete this type</button>
+                    <a class="btn btn-primary ms-2" href="#">Modify this technology</a>
+                    <button type="submit" class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete this technology</button>
                 </div>
             </div>
 
