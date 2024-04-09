@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreTechnologyRequest;
+use App\Http\Requests\UpdateTechnologyRequest;
 use App\Models\Project;
 use App\Models\Technology;
 use Illuminate\Http\Request;
@@ -39,10 +41,11 @@ class TechnologyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTechnologyRequest $request)
     {
         //estrapolate data from the request
-        $data = $request->all();
+        // $data = $request->all();
+        $data = $request->validated();
         // dd($data);
 
         //create a new technology and fill it, then save it
@@ -91,10 +94,11 @@ class TechnologyController extends Controller
      * @param  \App\Models\Technology  $technology
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Technology $technology)
+    public function update(UpdateTechnologyRequest $request, Technology $technology)
     {
         //estract the data from the request, then update the thech with it
-        $data = $request->all();
+        // $data = $request->all();
+        $data = $request->validated();
         $technology->update($data);
 
         //return the show view of the modified tech
