@@ -26,7 +26,14 @@
             </div>
             <span class="h5 ms-2"><b>Technologies:</b></span>
                 @if (sizeof($project->technologies) > 0 )
-                    {!! $project->getTechnologiesBadges() !!}
+                    @guest
+                        {!! $project->getTechnologiesBadges() !!}
+                    @endguest
+                    @auth
+                        @foreach ($project->technologies as $technology)
+                            <a href="{{ route('admin.technologies.show', $technology) }}">{!! $technology->getBadge() !!}</a>
+                        @endforeach
+                    @endauth
                 @else 
                     None
                 @endif 
