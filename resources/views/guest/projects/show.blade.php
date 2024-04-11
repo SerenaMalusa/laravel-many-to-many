@@ -11,54 +11,80 @@
                     <a class="btn btn-primary" href="{{ route('projects.index')}}">Back to projects' list</a>
                 </div>
             </div>
-            <div class="mb-3">
-                <span class="h5 ms-2"><b>Type:</b></span>
-                @if ($project->type_id)
-                    @guest
-                        {!! $project->type->getBadge() !!}
-                    @endguest
-                    @auth
-                        <a href="{{ route('admin.types.show', $project->type) }}">{!! $project->type->getBadge() !!}</a>
-                    @endauth
-                @else 
-                    None
-                @endif 
-            </div>
-            <span class="h5 ms-2"><b>Technologies:</b></span>
-                @if (sizeof($project->technologies) > 0 )
-                    @guest
-                        {!! $project->getTechnologiesBadges() !!}
-                    @endguest
-                    @auth
-                        @foreach ($project->technologies as $technology)
-                            <a href="{{ route('admin.technologies.show', $technology) }}">{!! $technology->getBadge() !!}</a>
-                        @endforeach
-                    @endauth
-                @else 
-                    None
-                @endif 
-            <h5 class="mt-3"><b>Description:</b></h5>
-            <p>{{ $project->description }}</p>                        
 
-            <div class="row">
-
+            <div class="row align-items-between">
                 <div class="col-6">
-                    <p>
-                        <b>Link: </b>
-                        <a href="{{ $project->github_link }}"> {{ $project->github_link }}</a>
-                    </p>
+                    @if($project->image)
+                        <img src="{{ asset('storage/' . $project->image) }}" alt="#">
+                    @else
+                        <img src="https://static.vecteezy.com/system/resources/previews/016/916/479/original/placeholder-icon-design-free-vector.jpg" alt="placeholder">
+                    @endif
                 </div>
 
-                <div class="col-6">
-                    <p><b>Repo: </b>{{ $project->repository }}</p>
+                <div class="col-6 row">
+                    <div class="col row mb-3">
+                        <div class="col-6">
+                            <span class="h5 ms-2"><b>Type:</b></span>
+                            @if ($project->type_id)
+                                @guest
+                                    {!! $project->type->getBadge() !!}
+                                @endguest
+                                @auth
+                                    <a href="{{ route('admin.types.show', $project->type) }}">{!! $project->type->getBadge() !!}</a>
+                                @endauth
+                            @else 
+                                None
+                            @endif 
+                        </div>
+
+                        <div class="col-6">
+                            <span class="h5 ms-2"><b>Repo:</b></span>
+                            <span>{{ $project->repository }}</span>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <span class="h5 ms-2"><b>Technologies:</b></span>
+                            @if (sizeof($project->technologies) > 0 )
+                                @guest
+                                    {!! $project->getTechnologiesBadges() !!}
+                                @endguest
+                                @auth
+                                    @foreach ($project->technologies as $technology)
+                                        <a href="{{ route('admin.technologies.show', $technology) }}">{!! $technology->getBadge() !!}</a>
+                                    @endforeach
+                                @endauth
+                            @else 
+                                None
+                            @endif 
+                    </div>
+
+                    <div class="col-12">
+                        <h5 class="mt-3"><b>Description:</b></h5>
+                        <p>{{ $project->description }}</p>  
+                    </div>
+
+                    <div class="col-12">
+                        <p>
+                            <b>Link: </b>
+                            <a href="{{ $project->github_link }}"> {{ $project->github_link }}</a>
+                        </p>
+                    </div>
+
+                    <div class="col row">
+
+                        <div class="col-6">
+                            <p><b>Creation's date: </b>{{ $project->creation_date }}</p>
+                        </div>
+                        <div class="col-6">
+                            <p><b>Last commit's date: </b>{{ $project->last_commit }}</p>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="col-6">
-                    <p><b>Creation's date: </b>{{ $project->creation_date }}</p>
-                </div>
-                <div class="col-6">
-                    <p><b>Last commit's date: </b>{{ $project->last_commit }}</p>
-                </div>
+
+            </div>                                  
+
+            <div class="row mt-3">
 
                 @auth
                 <div class="col-12">
