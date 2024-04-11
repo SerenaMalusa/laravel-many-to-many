@@ -11,6 +11,7 @@ use App\Models\Technology;
 use Illuminate\Support\Str;
 use App\Models\Type;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -35,14 +36,18 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProjectRequest $request)
+    public function store(Request $request)
     {
-        // $data = $request->all();
+        $data = $request->all();
         // dd($request);
-        $data = $request->validated();
+        // $data = $request->validated();
         $project = new Project();
         $project->fill($data);
         $project->slug = Str::slug($data['title'], '-');
+
+        //ifthe request contains the key image then save it in the store folder and save the path in the db
+        if ($request->hasFile('image')) $project->image = Storage::put('uploads/projects', $request->file('image'));
+
         $project->save();
 
         //if the key technologies exist in the array data, then assign the values passed

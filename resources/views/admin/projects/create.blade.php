@@ -7,7 +7,7 @@
     <div class="container py-4">
       <h1 class="mb-3">{{ $title }}</h1>
 
-      <form action="{{ route('admin.projects.store') }}" method="POST">
+      <form action="{{ route('admin.projects.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
     
         <div class="row flex-wrap mb-3">
@@ -62,8 +62,18 @@
                     @enderror
                 </div>
             </div>
+
+            <div class="col-6">
+                <label for="image" class="form-label">Image</label>
+                <input class="form-control @error('image') is-invalid @enderror" type="file" id="image" name="image" value="{{ old('image') ?? '' }}">
+                @error('image')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
             
-            <div class="col mb-3">
+            <div class="col-3 mb-3">
                 <label for="creation_date" class="form-label">Created at</label>
                 <input type="date" class="form-control @error('creation_date') is-invalid @enderror" id="creation_date" name="creation_date" value="{{ old('creation_date') ?? Carbon\Carbon::now() }}" />
                 @error('creation_date')
@@ -73,7 +83,7 @@
                 @enderror
             </div>
 
-            <div class="col mb-3">
+            <div class="col-3 mb-3">
                 <label for="last_commit" class="form-label">Last commit's date</label>
                 <input type="date" class="form-control @error('last_commit') is-invalid @enderror" id="last_commit" name="last_commit" value="{{ old('last_commit') ?? Carbon\Carbon::now() }}" />
                 @error('last_commit')
