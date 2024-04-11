@@ -49,7 +49,7 @@
                     <p>
                         You are about to delete the {{ $technology->name }} type. <br>
                         This action is <b>permanent</b>. <br>
-                        Pleazse confirm if you want to proceed.
+                        Please confirm if you want to proceed.
                     </p>
                 </div>
                 <div class="modal-footer">
