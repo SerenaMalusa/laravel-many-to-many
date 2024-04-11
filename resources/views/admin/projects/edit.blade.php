@@ -7,7 +7,7 @@
     <div class="container py-4">
       <h1 class="mb-5">{{ $title }}</h1>
 
-      <form action="{{ route('admin.projects.update', $project) }}" method="POST">
+      <form action="{{ route('admin.projects.update', $project) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
     
@@ -63,28 +63,46 @@
                     @enderror
                 </div>
             </div>
-                        
-            <div class="col">
-                <label for="creation_date" class="form-label">Created at</label>
-                <input type="date" class="form-control @error('creation_date') is-invalid @enderror" id="creation_date" name="creation_date" value="{{ old('creation_date') ?? $project->creation_date }}" />
-                @error('creation_date')
+
+            <div class="col-6">
+                
+                @if($project->image)
+                    <label for="image" class="form-label">Image</label>
+                    <img class="img-fluid mb-3" src="{{ asset('storage/' . $project->image) }}" alt="project image">
+                @else
+                    <label for="image" class="form-label">Add Image</label>
+                @endif
+                <input class="form-control @error('image') is-invalid @enderror" type="file" id="image" name="image" value="{{ old('image') ?? '' }}">
+                @error('image')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>
                 @enderror
             </div>
 
-            <div class="col">
-                <label for="last_commit" class="form-label">Last commit's date</label>
-                <input type="date" class="form-control @error('last_commit') is-invalid @enderror" id="last_commit" name="last_commit" value="{{ old('last_commit') ?? $project->last_commit }}" />
-                @error('last_commit')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div>
+            <div class="col-6 row">
+                <div class="col-6">
+                    <label for="creation_date" class="form-label">Created at</label>
+                    <input type="date" class="form-control @error('creation_date') is-invalid @enderror" id="creation_date" name="creation_date" value="{{ old('creation_date') ?? $project->creation_date }}" />
+                    @error('creation_date')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+    
+                <div class="col-6">
+                    <label for="last_commit" class="form-label">Last commit's date</label>
+                    <input type="date" class="form-control @error('last_commit') is-invalid @enderror" id="last_commit" name="last_commit" value="{{ old('last_commit') ?? $project->last_commit }}" />
+                    @error('last_commit')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+            </div>                        
 
-            <div class="col-12">
+            <div class="col-12 mt-3">
                 <label for="description" class="form-label">Description</label>
                 <textarea
                     class="form-control mb-3 @error('description') is-invalid @enderror"

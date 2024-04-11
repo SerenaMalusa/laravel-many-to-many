@@ -28,6 +28,7 @@ class UpdateProjectRequest extends FormRequest
             'type_id' => ['nullable', 'exists:types,id'],
             'technologies' => 'exists:technologies,id',
             'description' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,jpg,png,gif',
             'repository' => 'required|max:20',
             'github_link' => 'required',
             'creation_date' => 'required|date',
@@ -48,7 +49,9 @@ class UpdateProjectRequest extends FormRequest
             'string' => 'The :attribute must be a string',
             'max' => 'The :attribute must be no longer than :max characters',
             'date' => 'The :attribute msut be in date format',
-            'exists' => 'The chosen :attribute must be one of the list above'
+            'exists' => 'The chosen :attribute must be one of the list above',
+            'image' => 'The file must be an image',
+            'mimes' => 'The file must be one of the following types: :mimes'
         ];
     }
 }

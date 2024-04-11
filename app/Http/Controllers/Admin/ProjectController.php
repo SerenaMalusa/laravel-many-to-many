@@ -85,10 +85,21 @@ class ProjectController extends Controller
     public function update(UpdateProjectRequest $request, Project $project)
     {
         // $data = $request->all();
+        // dd($request);
         $data = $request->validated();
         // $project->update($data);
         $project->fill($data);
         $project->slug = Str::slug($data['title'], '-');
+
+        //if the project already has an image
+        if ($request->hasFile('image')) {
+            //delete it from the storage
+            if ($project->image) Storage::delete($project->image);
+        }
+        //then substitute the values
+        if ($request->hasFile('image')) $project->image = Storage::put('uploads/projects', $request->file('image'));
+
+
         $project->save();
 
         //if the key technologies exist in the array data
