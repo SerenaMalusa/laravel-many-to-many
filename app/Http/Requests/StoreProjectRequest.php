@@ -29,6 +29,7 @@ class StoreProjectRequest extends FormRequest
             'technologies' => 'exists:technologies,id',
             'description' => 'nullable|string',
             'repository' => 'required|max:20',
+            'image' => 'nullable|image|mimes:jpeg,jpg,png,gif',
             'github_link' => 'required',
             'creation_date' => 'required|date',
             'last_commit' => 'required|date'
@@ -48,7 +49,9 @@ class StoreProjectRequest extends FormRequest
             'string' => 'The :attribute must be a string',
             'max' => 'The :attribute must be no longer than :max characters',
             'date' => 'The :attribute must be in date format',
-            'exists' => 'The chosen :attribute must be one of the list above'
+            'exists' => 'The chosen :attribute must be one of the list above',
+            'image' => 'The file must be an image',
+            'mimes' => 'The file must be one of the following types: :mimes'
         ];
     }
 }

@@ -36,11 +36,11 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProjectRequest $request)
     {
-        $data = $request->all();
+        // $data = $request->all();
         // dd($request);
-        // $data = $request->validated();
+        $data = $request->validated();
         $project = new Project();
         $project->fill($data);
         $project->slug = Str::slug($data['title'], '-');
